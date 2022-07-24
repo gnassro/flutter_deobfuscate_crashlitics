@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _textObfuscatedController = TextEditingController(text: '');
+  final TextEditingController _textDeObfuscatedController = TextEditingController(text: '');
   final TextEditingController _filePathController = TextEditingController(text: '');
 
   @override
@@ -73,8 +74,10 @@ class _HomePageState extends State<HomePage> {
                             textDirection: TextDirection.rtl,
                             child: ElevatedButton.icon(
                                 onPressed: () async {
-                                  var result = await Process.run('flutter', ['doctor']);
-                                  stdout.write(result.stdout);
+                                  var result = await Process.run('flutter', ['symbolize -d ${_filePathController.text}']);
+
+                                  print('${result.stderr}');
+                                  _textDeObfuscatedController.text = '${result.stdout}${result.stderr}';
                                 },
                                 label: const Text('Process'),
                               icon: const Icon(
@@ -83,6 +86,20 @@ class _HomePageState extends State<HomePage> {
                             ),),
                           )
                         ],
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _textDeObfuscatedController,
+                          textAlignVertical: TextAlignVertical.top,
+                          keyboardType: TextInputType.multiline,
+                          expands: true,
+                          maxLines: null,
+                          readOnly: true,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(9),
+                            filled: true,
+                          ),
+                        ),
                       )
                     ],
                   ),
