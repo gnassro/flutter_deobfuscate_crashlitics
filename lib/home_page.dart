@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:process_run/shell.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -16,6 +17,24 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _textObfuscatedController = TextEditingController(text: '');
   final TextEditingController _textDeObfuscatedController = TextEditingController(text: '');
   final TextEditingController _filePathController = TextEditingController(text: '');
+  Shell? shell;
+  var controller = ShellLinesController();
+
+  @override
+  void initState() {
+
+    shell = Shell(
+        throwOnError: false,
+      stdout: controller.sink,
+      stderr: controller.sink,
+      verbose: false
+    );
+    controller.stream.listen((event) {
+      print(event);
+      shell!.kill();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +93,18 @@ class _HomePageState extends State<HomePage> {
                             textDirection: TextDirection.rtl,
                             child: ElevatedButton.icon(
                                 onPressed: () async {
-                                  var result = await Process.run('flutter', ['symbolize -d ${_filePathController.text}']);
+                                  //var result = await Process.run('flutter', ['symbolize -d ${_filePathController.text}']);
 
-                                  print('${result.stderr}');
-                                  _textDeObfuscatedController.text = '${result.stdout}${result.stderr}';
+                                  try {
+                                  await shell!.run('''
+                                      flutter symbolize -d ${_filePathController.text} <<OBF
+                                      ${_textObfuscatedController.text}
+                                      OBF
+                                      ''');
+                                  } on ShellException catch (_) {
+                                    print('$_');
+                                  }
+                                  //_textDeObfuscatedController.text = '${result.outText}';
                                 },
                                 label: const Text('Process'),
                               icon: const Icon(
