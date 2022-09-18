@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Flutter deobfuscate crashlytics's stacktrace
+Comment=Simple desktop (Linux) tool to deobfuscate crashlytics's stacktrace
+Exec=flutter-deobfuscate-crashlytics
+Icon=${SNAP}/meta/gui/fl-deo-cr.png
+Terminal=false
+Type=Application
+Categories=Development;

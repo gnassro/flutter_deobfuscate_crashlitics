@@ -9,11 +9,10 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Flutter De-obfuscate Crashlytics log',
+      title: "Flutter De-obfuscate Crashlytics's Stacktrace",
       debugShowCheckedModeBanner: false,
       home: YaruTheme(
         child: HomePage(),

@@ -7,6 +7,8 @@
 
 #include "flutter/generated_plugin_registrant.h"
 
+#define TITLE "Flutter deobfuscate crashlytics's stacktrace"
+
 struct _MyApplication {
   GtkApplication parent_instance;
   char** dart_entrypoint_arguments;
@@ -40,11 +42,11 @@ static void my_application_activate(GApplication* application) {
   if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
-    gtk_header_bar_set_title(header_bar, "flutter_deobfuscate_crashlytics");
+    gtk_header_bar_set_title(header_bar, TITLE);
     gtk_header_bar_set_show_close_button(header_bar, TRUE);
     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
   } else {
-    gtk_window_set_title(window, "flutter_deobfuscate_crashlytics");
+    gtk_window_set_title(window, TITLE);
   }
 
   gtk_window_set_default_size(window, 1280, 720);
