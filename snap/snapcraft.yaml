@@ -1,0 +1,28 @@
+name: flutter-deobfuscate-crashlytics
+version: '0.1.0'
+summary: Flutter deobfuscate crashlytics's stacktrace
+description: Simple desktop (Linux) tool to deobfuscate crashlytics's stacktrace
+confinement: strict
+base: core18
+grade: stable
+
+slots:
+  flutter-deobfuscate-crashlytics:
+    interface: dbus
+    bus: session
+    name: com.gnassro.flutter_deobfuscate_crashlytics
+
+apps:
+  dbus-flutter-deobfuscate-crashlytics:
+    command: flutter-deobfuscate-crashlytics
+    extensions: [flutter-master]
+    plugs:
+      - network
+    slots:
+      - dbus-flutter-deobfuscate-crashlytics
+
+parts:
+  flutter-deobfuscate-crashlytics:
+    plugin: flutter
+    source: https://github.com/gnassro/flutter_deobfuscate_crashlitics
+    flutter-target: lib/main.dart
