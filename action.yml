@@ -1,0 +1,21 @@
+name: 'Deploy Flutter app to snap'
+description: 'Automates the build and deployment of flutter linux app on snapcraft'
+author: 'gnassro'
+
+inputs:
+  workingDir:
+    description: 'The directory where the project is (default .)'
+    required: false
+    default: .
+runs:
+  using: 'composite'
+  steps:
+    - run: flutter pub get
+      shell: bash
+      working-directory: ${{inputs.workingDir}}
+    - run: sg lxd -c 'snapcraft --use-lxd'
+      shell: bash
+      working-directory: ${{inputs.workingDir}}
+    - run: ls -al
+      shell: bash
+      working-directory: ${{inputs.workingDir}}
