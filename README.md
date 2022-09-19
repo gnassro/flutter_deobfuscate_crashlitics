@@ -1,6 +1,6 @@
 # flutter_deobfuscate_crashlytics
 
-Simple tool to deobfuscate crashlytics log
+Simple desktop (Linux) tool to deobfuscate crashlytics log
 
 ## Getting Started
 
