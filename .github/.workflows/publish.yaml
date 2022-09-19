@@ -13,6 +13,6 @@ jobs:
       - name: Install Snapcraft
         uses: samuelmeuli/action-snapcraft@v1
 
-      # You can now run Snapcraft shell commands
+      # You can now run Snapcraft shell command
       - name: Use Snapcraft
         run: snapcraft --help
