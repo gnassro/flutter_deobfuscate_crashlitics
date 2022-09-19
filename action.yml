@@ -2,6 +2,10 @@ name: 'Deploy Flutter app to snap'
 description: 'Automates the build and deployment of flutter linux app on snapcraft'
 author: 'gnassro'
 
+branding:
+  color: blue
+  icon: code
+
 inputs:
   workingDir:
     description: 'The directory where the project is (default .)'
