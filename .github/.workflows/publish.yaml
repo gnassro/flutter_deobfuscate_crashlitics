@@ -17,5 +17,4 @@ jobs:
           snapcraft_token: ${{ secrets.snapcraft_token }}
           use_lxd: true
 
-      - name: Build snap
-        uses: gnassro/flutter_deobfuscate_crashlitics@master
+      - uses: gnassro/flutter_deobfuscate_crashlitics@master
