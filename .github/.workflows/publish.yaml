@@ -1,9 +1,12 @@
 name: Flutter deobfuscate crashlytics's stacktrace snapcraft deploy
+
   push:
     branches: [ master ]
+
 jobs:
   build:
     runs-on: ubuntu-18.04
+
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
@@ -13,5 +16,6 @@ jobs:
         with:
           snapcraft_token: ${{ secrets.snapcraft_token }}
           use_lxd: true
+
       - name: Build snap
         uses: gnassro/flutter_deobfuscate_crashlitics@master
