@@ -1,5 +1,6 @@
 name: Flutter deobfuscate crashlytics's stacktrace snapcraft deploy
-on: release
+  push:
+    branches: [ master ]
 jobs:
   build:
     runs-on: ubuntu-18.04
