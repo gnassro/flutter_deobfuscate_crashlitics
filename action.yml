@@ -17,6 +17,15 @@ runs:
     - run: flutter pub get
       shell: bash
       working-directory: ${{inputs.workingDir}}
+    - run: flutter pub outdated
+      shell: bash
+      working-directory: ${{inputs.workingDir}}
+    - run: flutter pub upgrade
+      shell: bash
+      working-directory: ${{inputs.workingDir}}
+    - run: flutter pub outdated
+      shell: bash
+      working-directory: ${{inputs.workingDir}}
     - run: sg lxd -c 'snapcraft --use-lxd'
       shell: bash
       working-directory: ${{inputs.workingDir}}
