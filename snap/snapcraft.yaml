@@ -7,7 +7,7 @@ base: core18
 grade: stable
 
 slots:
-  flutter-deobfuscate-crashlytics:
+  dbus-flutter-deobfuscate-crashlytics:
     interface: dbus
     bus: session
     name: com.gnassro.flutter_deobfuscate_crashlytics
