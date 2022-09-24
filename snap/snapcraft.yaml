@@ -15,7 +15,7 @@ slots:
 
 apps:
   flutter-deobfuscate-crashlytics:
-    command: flutter-deobfuscate-crashlytics
+    command: flutter_deobfuscate_crashlytics
     extensions: [flutter-master]
     plugs:
       - network

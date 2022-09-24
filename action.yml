@@ -26,7 +26,7 @@ runs:
     - run: flutter pub outdated
       shell: bash
       working-directory: ${{inputs.workingDir}}
-    - run: sg lxd -c 'snapcraft --use-lxd --debug'
+    - run: sg lxd -c 'snapcraft --use-lxd'
       shell: bash
       working-directory: ${{inputs.workingDir}}
     - run: ls -al
