@@ -4,17 +4,22 @@ on:
     branches: [ master ]
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - uses: samuelmeuli/action-snapcraft@v1
-        with:
-          snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
-          use_lxd: true
 
       - uses: subosito/flutter-action@v1
         with:
           channel: master
+
       - name: Build snap
         uses: gnassro/flutter_deobfuscate_crashlitics@master
+
+      - uses: snapcore/action-build@v1
+        id: build
+      - uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
+        with:
+          snap: ${{ steps.build.outputs.snap }}
+          release: edge
