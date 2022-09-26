@@ -29,6 +29,6 @@ runs:
     - run: sg lxd -c 'snapcraft --use-lxd'
       shell: bash
       working-directory: ${{inputs.workingDir}}
-    - run: SNAP_NAME=`ls ./*.snap | head -1` ; flutter upload --release=stable ${SNAP_NAME}
+    - run: SNAP_NAME=`ls ./*.snap | head -1` ; flutter upload --release=stable $SNAP_NAME
       shell: bash
       working-directory: ${{inputs.workingDir}}
