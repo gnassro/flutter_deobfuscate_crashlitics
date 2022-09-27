@@ -6,7 +6,10 @@ import 'package:flutter_deobfuscate_crashlytics/home_page.dart';
 import 'package:yaru/yaru.dart';
 
 void main() async {
-  var result = await Process.run('command', ['-v', 'flutter', '>/dev/null', '2>&1 || {echo "required" >&2; exit 1;}'], runInShell: true);
+  var result = await Process.run(
+      'command', ['-v', 'flutter', '>/dev/null', '2>&1 || { echo "required" >&2; exit 1; }'],
+      runInShell: true,
+  );
 
   runApp(MyApp(flutterInstalled: result.exitCode == 0,));
 }
