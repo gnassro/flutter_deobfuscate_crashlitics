@@ -1,8 +1,13 @@
 name: flutter-deobfuscate-crashlytics
-version: '0.1.0'
+version: '0.2.0'
 summary: Flutter deobfuscate crashlytics's stacktrace
 description: Simple desktop (Linux) tool to deobfuscate crashlytics's stacktrace
 
+title: Flutter deobfuscate crashlytics's log
+source-code: https://github.com/gnassro/flutter_deobfuscate_crashlitics
+type: app
+icon: snap/gui/fl-deo-cr.png
+license: MIT
 confinement: strict
 base: core18
 grade: stable
