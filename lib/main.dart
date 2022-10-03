@@ -1,17 +1,35 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_deobfuscate_crashlytics/flutter_not_installed_widget.dart';
 import 'package:flutter_deobfuscate_crashlytics/home_page.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:yaru/yaru.dart';
 
-void main() async {
-  var result = await Process.run(
-      'command', ['-v', 'flutter', '>/dev/null', '2>&1 || { echo "required" >&2; exit 1; }'],
-      runInShell: true,
-  );
+final talker = Talker(
+    loggerOutput: debugPrint,
+    loggerSettings: const TalkerLoggerSettings(
+        enableColors: true
+    )
+);
 
-  runApp(MyApp(flutterInstalled: result.exitCode == 0,));
+void main() async {
+  runZonedGuarded(() async {
+    var result = await Process.run(
+      'which', ['flutter'],
+      runInShell: true,
+    );
+
+    talker.log('${result.exitCode}');
+    if (result.exitCode != 0) {
+      talker.error('COMMAND ERROR: ${result.stdout}');
+    }
+
+    runApp(MyApp(flutterInstalled: result.exitCode == 0,));
+  }, (error, stack) {
+    talker.handle(error, stack, 'Uncaught app exception');
+  });
+
 }
 
 class MyApp extends StatelessWidget {
