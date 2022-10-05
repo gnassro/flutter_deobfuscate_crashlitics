@@ -19,7 +19,7 @@ void main() async {
 
     talker.log('$isFlutterInstalled');
     if (isFlutterInstalled == null) {
-      talker.error('COMMAND ERROR: Flutter not installed');
+      talker.error('Error: Flutter not installed');
     }
 
     runApp(MyApp(flutterInstalled: isFlutterInstalled != null,));
