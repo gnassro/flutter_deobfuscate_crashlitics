@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_deobfuscate_crashlytics/flutter_not_installed_widget.dart';
 import 'package:flutter_deobfuscate_crashlytics/home_page.dart';
+import 'package:process_run/which.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:yaru/yaru.dart';
 
@@ -15,17 +15,14 @@ final talker = Talker(
 
 void main() async {
   runZonedGuarded(() async {
-    var result = await Process.run(
-      'which', ['flutter'],
-      runInShell: true,
-    );
+    var isFlutterInstalled = await which('flutter');
 
-    talker.log('${result.exitCode}');
-    if (result.exitCode != 0) {
-      talker.error('COMMAND ERROR: ${result.stdout}');
+    talker.log('$isFlutterInstalled');
+    if (isFlutterInstalled == null) {
+      talker.error('COMMAND ERROR: Flutter not installed');
     }
 
-    runApp(MyApp(flutterInstalled: result.exitCode == 0,));
+    runApp(MyApp(flutterInstalled: isFlutterInstalled != null,));
   }, (error, stack) {
     talker.handle(error, stack, 'Uncaught app exception');
   });

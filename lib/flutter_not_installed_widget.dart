@@ -1,9 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/talker_flutter.dart';
+import 'package:flutter_deobfuscate_crashlytics/component/log_button.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'main.dart';
 
 class FlutterNotInstalledWidget extends StatelessWidget {
   const FlutterNotInstalledWidget({Key? key}) : super(key: key);
@@ -18,16 +16,7 @@ class FlutterNotInstalledWidget extends StatelessWidget {
             Image.asset('assets/images/flutter-brand-icon.png'),
             const SizedBox(height: 20,),
             _flutterNotInstalledText(),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => TalkerScreen(talker: talker),
-                      )
-                  );
-                },
-                child: const Text('Log')
-            )
+            const LogButton()
           ],
         ),
       ),
