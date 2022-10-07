@@ -1,5 +1,5 @@
 name: flutter-deobfuscate-crashlytics
-version: '0.4.0+5'
+version: '0.4.0+6'
 summary: Flutter deobfuscate crashlytics's stacktrace
 description: Simple desktop (Linux) tool to deobfuscate crashlytics's stacktrace
 
