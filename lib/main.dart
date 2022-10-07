@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_deobfuscate_crashlytics/flutter_not_installed_widget.dart';
 import 'package:flutter_deobfuscate_crashlytics/home_page.dart';
-import 'package:process_run/which.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:process_run/utils/process_result_extension.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:yaru/yaru.dart';
 
@@ -15,14 +17,31 @@ final talker = Talker(
 
 void main() async {
   runZonedGuarded(() async {
-    var isFlutterInstalled = await which('flutter');
+    Directory appDocDir = await getApplicationSupportDirectory();
+    String appDocPath = appDocDir.path;
+    talker.info('Working directory: $appDocPath');
+    var lsCommand = await Process.run(
+        'ls', ['-al'],
+        runInShell: true,
+        workingDirectory: appDocPath
+    );
+    talker.info(lsCommand.outText);
 
-    talker.log('$isFlutterInstalled');
-    if (isFlutterInstalled == null) {
-      talker.error('Error: Flutter not installed');
+    var result = await Process.run(
+      'which', ['flutter'],
+      runInShell: true,
+      workingDirectory: appDocPath
+    );
+
+    talker.info('${result.exitCode}');
+    if (result.exitCode != 0) {
+      talker.error('COMMAND ERROR: ${result.outText} \n ${result.errText}');
+    }
+    else {
+      talker.info('Flutter path: ${result.outText}');
     }
 
-    runApp(MyApp(flutterInstalled: isFlutterInstalled != null,));
+    runApp(MyApp(flutterInstalled: result.exitCode == 0,));
   }, (error, stack) {
     talker.handle(error, stack, 'Uncaught app exception');
   });
