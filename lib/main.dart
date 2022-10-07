@@ -28,7 +28,7 @@ void main() async {
     talker.info(lsCommand.outText);
 
     var result = await Process.run(
-      'which', ['flutter'],
+      'flutter', ['doctor', '-v'],
       runInShell: true,
       workingDirectory: appDocPath
     );
@@ -38,7 +38,7 @@ void main() async {
       talker.error('COMMAND ERROR: ${result.outText} \n ${result.errText}');
     }
     else {
-      talker.info('Flutter path: ${result.outText}');
+      talker.info('Flutter info: ${result.outText}');
     }
 
     runApp(MyApp(flutterInstalled: result.exitCode == 0,));
