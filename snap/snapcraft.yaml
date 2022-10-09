@@ -8,7 +8,7 @@ source-code: https://github.com/gnassro/flutter_deobfuscate_crashlitics
 type: app
 icon: snap/gui/fl-deo-cr.png
 license: MIT
-confinement: strict
+confinement: classic
 base: core18
 grade: stable
 
