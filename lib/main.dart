@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:process_run/utils/process_result_extension.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:yaru/yaru.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 final talker = Talker(
     loggerOutput: debugPrint,
@@ -17,11 +18,14 @@ final talker = Talker(
 
 void main() async {
   runZonedGuarded(() async {
+    await Hive.initFlutter();
+    await Hive.openBox<String>('flutter_path');
+
     Directory appDocDir = await getApplicationSupportDirectory();
     String appDocPath = appDocDir.path;
     talker.info('Working directory: $appDocPath');
     var lsCommand = await Process.run(
-        'ls', ['-al'],
+        'eval', ['echo "\$PATH"'],
         runInShell: true,
         workingDirectory: appDocPath
     );
