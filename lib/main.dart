@@ -48,6 +48,7 @@ void main() async {
     runApp(MyApp(flutterInstalled: result.exitCode == 0,));
   }, (error, stack) {
     talker.handle(error, stack, 'Uncaught app exception');
+    runApp(const MyApp(flutterInstalled: false,));
   });
 
 }
