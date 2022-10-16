@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:dbus/dbus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deobfuscate_crashlytics/flutter_not_installed_widget.dart';
 import 'package:flutter_deobfuscate_crashlytics/home_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:process_run/utils/process_result_extension.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:ubuntu_session/ubuntu_session.dart';
 import 'package:yaru/yaru.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -20,6 +22,17 @@ void main() async {
   runZonedGuarded(() async {
     await Hive.initFlutter();
     await Hive.openBox<String>('flutter_path');
+    final session = UbuntuSession(
+      fallback: false
+    );
+    final manager = GnomeSessionManager();
+    await manager.connect();
+
+
+    talker.info('Is session Active: ${manager.sessionIsActive}');
+    talker.info('Is session running: ${await manager.isSessionRunning()}');
+    talker.info('Session name: ${manager.sessionName}');
+    talker.info('Session desktop: ${session.desktop}');
 
     Directory appDocDir = await getApplicationSupportDirectory();
     String appDocPath = appDocDir.path;
