@@ -22,4 +22,4 @@ jobs:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
         with:
           snap: ${{ steps.build.outputs.snap }}
-          release: stable
+          release: edge
